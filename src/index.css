@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@layer base {}
+
+@layer components {
+    .input {
+        @apply bg-white shadow py-1.5 px-3 outline-0
+        }
+    .btn {
+        @apply bg-red-500 text-white py-1.5 px-3 cursor-pointer hover:bg-red-600 transition-colors duration-300 ease-in-out;
+    }   
+}
+
+@layer utilities {}

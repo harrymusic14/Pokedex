@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter} from 'react-router'
 import App from './routes/App.jsx'
 import './index.css'
+import { NameProvider } from './contexts/name.Context.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <NameProvider>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </NameProvider>
   </StrictMode>,
 )

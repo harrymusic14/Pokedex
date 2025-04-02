@@ -12,10 +12,9 @@ function App() {
         <Route index element={<Pokedex/>} />
         <Route path = ':name' element = {<h2>Details</h2>} />
       </Route>
-      
       <Route path= '*' element={<h2>404 Not Found</h2>}/>
     </Routes>
-  )
+    )
 }
 
 export default App

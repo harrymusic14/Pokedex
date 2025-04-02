@@ -11,6 +11,7 @@ function PokemonCard ({url}){
             })
             .catch(error => console.error(error))
     }, [url])
+    
     return (
         <div>
             <h2>{pokemon.name}</h2>

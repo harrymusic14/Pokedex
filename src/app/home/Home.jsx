@@ -11,6 +11,7 @@ function Home () {
                 <NameForm />
                 
             </div>
+
             <div className="absolute left-0 bottom-0 bg-black w-full h-20 mt-auto">
                 <div className="bg-red-600 w-full h-12"></div>
             </div>

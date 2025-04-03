@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { useName } from "../../contexts/nameContext"
 import PokemonsList from './components/PokemonsList'
+import PokemonCard from "./components/PokemonCard"
 
 const baseUrl = "https://pokeapi.co/api/v2/pokemon"
 
@@ -9,8 +10,10 @@ function Pokedex() {
     const [state] = useName()
     const [pokemons, setPokemons] = useState([])
     const [filteredPokemons, setFilterdPokemons] = useState([])
+    const [types, setTypes] = useState([])
     const [siglePokemon, setSinglePokemon] = useState(null)
     const [search, setSearch] = useState('')
+    const [selectedType, setSelectedType] = useState('')
     
 
     const getPokemons = async () => {
@@ -25,6 +28,30 @@ function Pokedex() {
         getPokemons()
     }, [])
 
+    useEffect(()=>{
+        axios.get('https://pokeapi.co/api/v2/type?limit=21')
+            .then(response => {
+                setTypes(response.data.results)
+            })
+            .catch(error => console.error(error))
+    }, [])
+    
+    useEffect(() => {
+        if (selectedType === 'all') {
+            setFilterdPokemons(pokemons)
+            setSinglePokemon(null)
+            return
+        }
+        if (selectedType){
+            axios.get('https://pokeapi.co/api/v2/type/' + selectedType)
+                .then(response => {
+                    setFilterdPokemons(response.data.pokemon.map(p => p.pokemon))
+                    setSinglePokemon(null)
+                })
+                .catch(error => console.error(error))
+        }
+    },[selectedType])
+
     useEffect(() => {
         if (!search) {
             setFilterdPokemons(pokemons)
@@ -37,9 +64,15 @@ function Pokedex() {
     }, [search, pokemons])
     
     const searchPokemon = () => {
+        if (!search) {
+            setFilterdPokemons(pokemons)
+            setSinglePokemon(null)
+            return
+        }
+
         axios.get(baseUrl + '/' + search.toLowerCase())
             .then(response => {
-                setSinglePokemon(response.data)
+                setSinglePokemon(baseUrl + '/' + response.data.name)
             })
             .catch(error => console.error(error))
     }
@@ -52,23 +85,30 @@ function Pokedex() {
                     <input 
                         type="text"
                         placeholder="bucar pokemón..."
-                        volue={search}
+                        value={search}
                         onChange={(e)=>setSearch(e.target.value)} 
                         className="input"
                         />
                     <button className="btn" onClick={searchPokemon}>
                         Buscar
                     </button>
+
+                    <select
+                        value={selectedType}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                        className="input ml-4"
+                    >
+                        <option value="all">ALL Pokémon</option>
+                        {types.map(type => (
+                            <option key={type.name} value={type.name} className="capitalize">
+                                {type.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
-                {/* Aqui va el pokemón */}
-                
-
                 {siglePokemon ? (
-                    <div>
-                        <h2>{siglePokemon.name}</h2>
-                        <img src={siglePokemon.sprites?.front_default} alt={siglePokemon.name} />
-                    </div>
+                    <PokemonCard url={siglePokemon} />
                 ) : (
                     <PokemonsList pokemons={filteredPokemons}/>
                 )}  

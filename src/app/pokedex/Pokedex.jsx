@@ -4,6 +4,7 @@ import { useName } from "../../contexts/nameContext"
 import PokemonsList from './components/PokemonsList'
 import PokemonCard from "./components/PokemonCard"
 
+
 const baseUrl = "https://pokeapi.co/api/v2/pokemon"
 
 function Pokedex() {
@@ -80,6 +81,7 @@ function Pokedex() {
     return (
         <div>
             <div className="max-w-5xl mx-auto px-4">
+                <div className="flex flex-col items-center">
                 <h2 className="mb-9"><span className="text-red-500 font-semibold">Bienvenido {state.name}</span>, aquí podras encontrar tu pokemón favorito</h2>
                 <div className="mb-9    ">
                     <input 
@@ -114,6 +116,8 @@ function Pokedex() {
                 )}  
                 {/* Aqui va la lista de pokemones */}
             </div>
+
+                </div>
         </div>
     )
 }

@@ -29,26 +29,26 @@ function PokemonCard ({url}){
                 />
             </div>
             <div className="p-4 text-center">
-                <h2 className="capitalize text-2x1 font-semibold">{pokemon.name}</h2>
+                <h2 className="capitalize text-2xl font-semibold">{pokemon.name}</h2>
                 <p className="capitalize">{pokemon.types.map(p => p.type.name).join(' / ')}
                 </p>
                 <span className="text-gray-400 text-sm">Tipo</span>
-                <ul className="border-t-1 border-gray-200 mt-4">
-                    <li>
+                <ul className="border-t-1 border-gray-200 mt-4 pt-4 grid grid-cols-2 gap-4">
+                    <li className="text-gray-400 text-sm ">
                         HP
-                        <span>{}</span>
+                        <span className="block text-black text-base">{pokemon.stats[0].base_stat}</span>
                     </li>
-                    <li>
+                    <li className="text-gray-400 text-sm ">
                         ATAQUE
-                        <span>{}</span>
+                        <span className="block text-black text-base">{pokemon.stats[1].base_stat}</span>
                     </li>
-                    <li>
+                    <li className="text-gray-400 text-sm ">
                         DEFENSA
-                        <span>{}</span>
+                        <span className="block text-black text-base">{pokemon.stats[2].base_stat}</span>
                     </li>
-                    <li>
+                    <li className="text-gray-400 text-sm ">
                         VELOCIDAD
-                        <span>{}</span>
+                        <span className="block text-black text-base">{pokemon.stats[5].base_stat}</span>
                     </li>
                 </ul>
             </div>
